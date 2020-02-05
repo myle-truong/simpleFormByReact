@@ -1,52 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from './Login';
 
-const isLoggedIn = false;
-
-const currentTime = new Date('Wed Feb 06 2020 02:07:00 GMT+0530').getHours();
-console.log(currentTime);
-
-//check login condition
-
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      backgroundColor: ''
-    };
-  }
-
-  // Auto color run depend on current time
-
-  backgroundColors = () => {
-    if (currentTime >= 23 && currentTime < 7) {
-      this.setState({
-        backgroundColor: 'red'
-      });
-    }
-    if (currentTime > 7 && currentTime < 14) {
-      this.setState({
-        backgroundColor: 'blue'
-      });
-    } else {
-      this.setState({
-        backgroundColor: 'green'
-      });
-    }
-    console.log(this.state.backgroundColor);
+const App = () => {
+  const [background, setBackground] = useState('white');
+  const [currentTime, setCurrentTime] = useState(new Date().getHours() + 10);
+  console.log(currentTime);
+  let style = {
+    backgroundColor: background
   };
+  const handleClick = () => {
+    setBackground('red');
+  };
+
+  useEffect(() => {
+    const changeColor = () => {
+      if (currentTime >= 0 && currentTime < 9) {
+        setBackground('red');
+      } else if (currentTime > 9 && currentTime < 15) {
+        setBackground('blue');
+      } else if (currentTime > 16) {
+        setBackground('green');
+      }
+    };
+    changeColor();
+  }, []);
 
   //check conditional login
-  renderConditionally = () => {
-    if (isLoggedIn === true) {
-      return <h1>Hello</h1>;
-    } else {
-      return <Login backgroundColors={this.backgroundColors} />;
-    }
-  };
-  render() {
-    return <div className="container">{this.renderConditionally()}</div>;
-  }
-}
 
+  return (
+    <div id="app" onClick={handleClick} style={style}>
+      <h3>App</h3>
+    </div>
+  );
+};
 export default App;

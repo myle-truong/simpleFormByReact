@@ -1,10 +1,9 @@
 import React from 'react';
 import Input from './Input';
 
-const Login = ({ props }) => {
-  //console.log(backgroundColors);
+const Login = () => {
   return (
-    <form className="form" style={{ backgroundColor: props }}>
+    <form className="form">
       <Input type="text" placeholder="Username" />
       <Input type="password" placeholder="Password" />
       <button type="submit">Login</button>
